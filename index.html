@@ -5,10 +5,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Moon Miner</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
+  <header>
+    <div class="text-center">
+      <h1 class="title">Moon Miner</h1>
+    </div>
+  </header>
+  <main>
+    <div class="d-flex justify-content-center"><img src="imgs/morrslieb.png" alt="moon" class="img-fluid moon"></div>
+  </main>
+  <footer class="container-fluid">
+    <!-- SECTION This holds the resource gain rates and current resource count -->
+    <section class="row justify-content-center">
+      <div class="col-md-2 bgm-darker informational primary-text">Click resource gain rate</div>
+      <div class="col-md-3 bgm-dark informational primary-text">Resource count</div>
+      <div class="col-md-2 bgm-darker informational primary-text">Auto resource gain rate</div>
+    </section>
+    <!-- SECTION This holds the two sections with upgrades and stats-->
+    <section class="row primary-text">
+      <div class="col-12 col-md-6 bgm-dark">
+        <!-- SECTION This holds the upgrades -->
+        <section class="row bgm-dark">
+          <div class="col-md-6">
+            <h4>CLICK UPGRADES</h4>
+          </div>
+          <div class="col-md-6">
+            <h4>AUTOMATIC UPGRADES</h4>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div><button class="upgrade-btn">50</button></div>
+            <div>
+              <p>Upgrade name</p>
+              <p>Upgrade amount</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div><button class="upgrade-btn">1000</button></div>
+            <div>
+              <p>Upgrade name</p>
+              <p>Upgrade amount</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div><button class="upgrade-btn">500</button></div>
+            <div>
+              <p>Upgrade name</p>
+              <p>Upgrade amount</p>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div><button class="upgrade-btn">10000</button></div>
+            <div>
+              <p>Upgrade name</p>
+              <p>Upgrade amount</p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="col-12 col-md-6 bgm-dark">
+        <!-- SECTION This holds the stats-->
+        <section class="row">
+          <div class="col-md-6">
+            <h4>CLICK STATS</h4>
+          </div>
+          <div class="col-md-6">
+            <h4>AUTOMATIC STATS</h4>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div>Number of upgrades</div>
+            <div>Name of upgrade</div>
+            <div>arrow</div>
+            <div>Amount upgrade provides</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div>Number of upgrades</div>
+            <div>Name of upgrade</div>
+            <div>clock</div>
+            <div>Amount upgrade provides</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div>Number of upgrades</div>
+            <div>Name of upgrade</div>
+            <div>arrow</div>
+            <div>Amount upgrade provides</div>
+          </div>
+          <div class="col-md-6 d-flex">
+            <div>Number of upgrades</div>
+            <div>Name of upgrade</div>
+            <div>clock</div>
+            <div>Amount upgrade provides</div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </footer>
+  <script src="main.js"></script>
 </body>
 
 </html>

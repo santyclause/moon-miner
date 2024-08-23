@@ -1,0 +1,55 @@
+:root {
+  --primary: #00FF00;
+  --primaryDarker: #00AA00;
+  --dark: #323232;
+  --darker: #222222;
+  --light: #e6e6e6;
+}
+
+body {
+  background-image: url(imgs/night-sky.jpg)
+}
+
+p {
+  margin: 0;
+}
+
+.bgm-dark {
+  background-color: var(--dark);
+}
+
+.bgm-darker {
+  background-color: var(--darker);
+}
+
+.primary-text {
+  color: var(--primary)
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 900;
+  text-shadow: 5px 5px 0px var(--primary);
+  color: var(--dark);
+}
+
+.moon {
+  width: 20%;
+  margin: 5%;
+}
+
+.informational {
+  border-radius: 10px 10px 0px 0px;
+  text-align: center;
+}
+
+.upgrade-btn {
+  width: 6rem;
+  height: 80%;
+  background-color: var(--primary);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 5px 0px var(--primaryDarker);
+  font-weight: 800;
+  margin-right: 1em;
+}
