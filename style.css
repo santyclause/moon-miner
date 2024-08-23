@@ -38,9 +38,25 @@ p {
   margin: 5%;
 }
 
+.moon-cont {
+  position: relative;
+}
+
 .informational {
   border-radius: 10px 10px 0px 0px;
-  text-align: center;
+  font-size: 1.5rem;
+  height: 3em;
+  padding-bottom: 0.5em;
+}
+
+.main-info {
+  font-size: 2rem;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.resource-count {
+  font-size: 3rem;
 }
 
 .upgrade-btn {
