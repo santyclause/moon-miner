@@ -117,7 +117,11 @@ function calculateAutoRate() {
 
   return currentRate;
 }
+// TODO disable buttons when you can't afford them
+function checkButtonState() {
 
+}
+// TODO generate helper ratstronauts
 function generateHelper() {
 
 }
