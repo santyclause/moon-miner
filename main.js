@@ -52,16 +52,16 @@ const currentHelpers = [
 const moonElem = document.getElementById("moon");
 moonElem.addEventListener("click", addManualWarpstone);
 
-const pickaxeElem = document.getElementById("pickaxe-btn");
+const pickaxeElem = document.getElementById("btn-pickaxe");
 pickaxeElem.addEventListener("click", () => buyItem('pickaxe', 'manual'));
 
-const drillElem = document.getElementById("drill-btn");
+const drillElem = document.getElementById("btn-drill");
 drillElem.addEventListener("click", () => buyItem('drill', 'manual'));
 
-const ratstronautElem = document.getElementById("ratstronaut-btn");
+const ratstronautElem = document.getElementById("btn-ratstronaut");
 ratstronautElem.addEventListener("click", () => buyItem('ratstronaut', 'auto'));
 
-const colonyElem = document.getElementById("colony-btn");
+const colonyElem = document.getElementById("btn-colony");
 colonyElem.addEventListener("click", () => buyItem('colony', 'auto'));
 // !SECTION
 
@@ -91,6 +91,7 @@ function buyItem(type, category) {
   if (currentWarpstone >= selectedItem.price) {
     spentWarpstone += selectedItem.price;
     selectedItem.qty++;
+    increasePrice(selectedItem);
   }
 
   calculateCurrentWarpstone(0);
@@ -117,6 +118,12 @@ function calculateAutoRate() {
 
   return currentRate;
 }
+//TODO increase upgrade prices on upgrade
+function increasePrice(selectedItem) {
+  selectedItem.price += Math.round(selectedItem.price * 0.25);
+  drawPrices();
+}
+
 // TODO disable buttons when you can't afford them
 function checkButtonState() {
 
@@ -160,6 +167,23 @@ function drawStats() {
     }
   })
 }
+
+function drawPrices() {
+  let btnElem;
+
+  manualUpgradeOptions.forEach((upgrade) => {
+    btnElem = document.getElementById(`btn-${upgrade.type}`)
+
+    if (btnElem != null) {
+      btnElem.innerText = upgrade.price;
+    }
+  })
+
+  autoUpgradeOptions.forEach((upgrade) => {
+    btnElem = document.getElementById(`btn-${upgrade.type}`)
+  })
+}
+
 // TODO draw helpers
 function drawHelpers() {
 
