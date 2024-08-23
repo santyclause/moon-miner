@@ -89,3 +89,9 @@ p {
   padding: 0.5em;
   margin: 0.5em;
 }
+
+.upgrade-btn.disabled {
+  background-color: var(--primaryDarker);
+  box-shadow: none;
+  cursor: unset;
+}

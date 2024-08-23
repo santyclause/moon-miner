@@ -103,6 +103,7 @@ function buyItem(type, category) {
 function calculateCurrentWarpstone(incrAmt) {
   warpstone += incrAmt;
   currentWarpstone = warpstone - spentWarpstone;
+  checkButtonState()
 }
 
 function calculateClickRate() {
@@ -118,15 +119,34 @@ function calculateAutoRate() {
 
   return currentRate;
 }
-//TODO increase upgrade prices on upgrade
+
 function increasePrice(selectedItem) {
   selectedItem.price += Math.round(selectedItem.price * 0.25);
   drawPrices();
 }
 
-// TODO disable buttons when you can't afford them
 function checkButtonState() {
+  let btnElem;
 
+  manualUpgradeOptions.forEach((upgrade) => {
+    btnElem = document.getElementById(`btn-${upgrade.type}`)
+
+    if (btnElem != null && currentWarpstone >= upgrade.price) {
+      btnElem.classList.remove('disabled')
+    } else if (btnElem != null) {
+      btnElem.classList.add('disabled')
+    }
+  })
+
+  autoUpgradeOptions.forEach((upgrade) => {
+    btnElem = document.getElementById(`btn-${upgrade.type}`)
+
+    if (btnElem != null && currentWarpstone >= upgrade.price) {
+      btnElem.classList.remove('disabled')
+    } else if (btnElem != null) {
+      btnElem.classList.add('disabled')
+    }
+  })
 }
 // TODO generate helper ratstronauts
 function generateHelper() {
@@ -142,7 +162,7 @@ function drawWarpstone() {
   clickGainElem.innerText = calculateClickRate();
   autoGainElem.innerText = calculateAutoRate();
 }
-// TODO draw stats
+
 function drawStats() {
   let qtyElem;
   let rateElem;
@@ -181,6 +201,8 @@ function drawPrices() {
 
   autoUpgradeOptions.forEach((upgrade) => {
     btnElem = document.getElementById(`btn-${upgrade.type}`)
+
+    btnElem.innerText = upgrade.price;
   })
 }
 
