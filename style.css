@@ -7,7 +7,8 @@
 }
 
 body {
-  background-image: url(imgs/night-sky.jpg)
+  background-image: url(imgs/night-sky.jpg);
+  user-select: none;
 }
 
 p {
@@ -51,8 +52,15 @@ p {
 
 .main-info {
   font-size: 2rem;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 0.25em 1em 0.25em 1em;
+}
+
+.warpstone-icon {
+  background-image: url('imgs/warpstone-a.png');
+  background-position: center;
+  background-size: cover;
+  height: 100%;
+  aspect-ratio: 1/1;
 }
 
 .resource-count {

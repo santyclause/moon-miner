@@ -1,33 +1,74 @@
 let warpstone = 0;
 let currentWarpstone = 0;
 let spentWarpstone = 0;
+let clockStarted = false;
 
-let manualUpgrades = [
+const manualUpgradeOptions = [
   {
     type: 'default',
-    rate: 1
+    price: 0,
+    rate: 1,
+    qty: 1
+  },
+  {
+    type: 'pickaxe',
+    price: 50,
+    rate: 1,
+    qty: 0
+  },
+  {
+    type: 'drill',
+    price: 500,
+    rate: 10,
+    qty: 0
   }
 ]
 
-let helpers = [
+const autoUpgradeOptions = [
+  {
+    type: 'ratstronaut',
+    price: 1000,
+    rate: 13,
+    qty: 0
+  },
+  {
+    type: 'colony',
+    price: 50000,
+    rate: 130,
+    qty: 0
+  }
+]
+
+const currentHelpers = [
   {
     name: 'Lurk',
-    type: 'Ratstronaut',
-    rate: 1
+    top: 50,
+    left: 50,
+    rotation: 0
   }
 ]
 
-
+// SECTION Event Listeners
 const moonElem = document.getElementById("moon");
 moonElem.addEventListener("click", addManualWarpstone);
 
+const pickaxeElem = document.getElementById("pickaxe-btn");
+pickaxeElem.addEventListener("click", () => buyItem('pickaxe', 'manual'));
+
+const drillElem = document.getElementById("drill-btn");
+drillElem.addEventListener("click", () => buyItem('drill', 'manual'));
+
+const ratstronautElem = document.getElementById("ratstronaut-btn");
+ratstronautElem.addEventListener("click", () => buyItem('ratstronaut', 'auto'));
+
+const colonyElem = document.getElementById("colony-btn");
+colonyElem.addEventListener("click", () => buyItem('colony', 'auto'));
+// !SECTION
 
 
 function addManualWarpstone() {
   let incrAmt = calculateClickRate();
-  warpstone += incrAmt;
-  calculateCurrentWarpstone();
-
+  calculateCurrentWarpstone(incrAmt);
   drawWarpstone();
 }
 
@@ -37,15 +78,25 @@ function addAutoWarpstone() {
   drawWarpstone();
 }
 
-function drawWarpstone() {
-  const resourceCountElem = document.getElementById('resource');
-  const clickGainElem = document.getElementById('click-gain-rate');
-  const autoGainElem = document.getElementById('auto-gain-rate');
+function buyItem(type, category) {
+  let selectedItem;
 
-  resourceCountElem.innerText = currentWarpstone;
-  clickGainElem.innerText = calculateClickRate();
-  autoGainElem.autoGainElem = calculateAutoRate();
+  if (category == 'auto') {
+    selectedItem = autoUpgradeOptions.find((upgrade) => upgrade.type == type);
+    startClock();
+  } else {
+    selectedItem = manualUpgradeOptions.find((upgrade) => upgrade.type == type);
+  }
+
+  if (currentWarpstone >= selectedItem.price) {
+    spentWarpstone += selectedItem.price;
+    selectedItem.qty++;
+  }
+
+  calculateCurrentWarpstone(0);
+  drawWarpstone();
 }
+
 
 function calculateCurrentWarpstone(incrAmt) {
   warpstone += incrAmt;
@@ -54,19 +105,36 @@ function calculateCurrentWarpstone(incrAmt) {
 
 function calculateClickRate() {
   let currentRate = 0;
-  manualUpgrades.forEach((upgrade) => currentRate += upgrade.rate);
+  manualUpgradeOptions.forEach((upgrade) => currentRate += (upgrade.rate * upgrade.qty));
 
   return currentRate;
 }
 
 function calculateAutoRate() {
   let currentRate = 0;
-  helpers.forEach((helper) => currentRate += helper.rate);
+  autoUpgradeOptions.forEach((upgrade) => currentRate += (upgrade.rate * upgrade.qty));
 
   return currentRate;
 }
 
+function drawWarpstone() {
+  const resourceCountElem = document.getElementById('resource');
+  const clickGainElem = document.getElementById('click-gain-rate');
+  const autoGainElem = document.getElementById('auto-gain-rate');
+
+  resourceCountElem.innerText = currentWarpstone;
+  clickGainElem.innerText = calculateClickRate();
+  autoGainElem.innerText = calculateAutoRate();
+}
+
+function drawStats() {
+
+}
+
 function startClock() {
+  if (clockStarted) {
+    return
+  }
   setInterval(addAutoWarpstone, 3000);
 }
 
