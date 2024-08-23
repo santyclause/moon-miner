@@ -95,6 +95,7 @@ function buyItem(type, category) {
 
   calculateCurrentWarpstone(0);
   drawWarpstone();
+  drawStats()
 }
 
 
@@ -132,7 +133,28 @@ function drawWarpstone() {
 }
 // TODO draw stats
 function drawStats() {
+  let qtyElem;
+  let rateElem;
 
+  manualUpgradeOptions.forEach((upgrade) => {
+    qtyElem = document.getElementById(`qty-${upgrade.type}`);
+    rateElem = document.getElementById(`rate-${upgrade.type}`);
+
+    if (qtyElem != null) {
+      qtyElem.innerText = upgrade.qty;
+      rateElem.innerText = upgrade.qty * upgrade.rate;
+    }
+  });
+
+  autoUpgradeOptions.forEach((upgrade) => {
+    qtyElem = document.getElementById(`qty-${upgrade.type}`);
+    rateElem = document.getElementById(`rate-${upgrade.type}`);
+
+    if (qtyElem != null) {
+      qtyElem.innerText = upgrade.qty;
+      rateElem.innerText = upgrade.qty * upgrade.rate;
+    }
+  })
 }
 // TODO draw helpers
 function drawHelpers() {
@@ -144,6 +166,7 @@ function startClock() {
     return
   }
   setInterval(addAutoWarpstone, 3000);
+  clockStarted = true;
 }
 
 // function draw() {
