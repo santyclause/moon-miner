@@ -117,6 +117,10 @@ function calculateAutoRate() {
   return currentRate;
 }
 
+function generateHelper() {
+
+}
+
 function drawWarpstone() {
   const resourceCountElem = document.getElementById('resource');
   const clickGainElem = document.getElementById('click-gain-rate');
@@ -126,8 +130,12 @@ function drawWarpstone() {
   clickGainElem.innerText = calculateClickRate();
   autoGainElem.innerText = calculateAutoRate();
 }
-
+// TODO draw stats
 function drawStats() {
+
+}
+// TODO draw helpers
+function drawHelpers() {
 
 }
 
