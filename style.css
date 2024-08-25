@@ -90,6 +90,13 @@ p {
   margin: 0.5em;
 }
 
+.helper {
+  position: absolute;
+  pointer-events: none;
+  color: #ff0000;
+  text-align: center;
+}
+
 .upgrade-btn.disabled {
   background-color: var(--primaryDarker);
   box-shadow: none;

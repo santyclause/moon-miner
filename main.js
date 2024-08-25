@@ -2,6 +2,7 @@ let warpstone = 0;
 let currentWarpstone = 0;
 let spentWarpstone = 0;
 let clockStarted = false;
+const nameList = ['Queek', 'Tretch', 'Ikit', 'Sleek', 'Sneek', 'Peanut', 'Sniktch', 'Thanquol', 'Skrolk', 'Ska', 'Squeak', 'Throt', 'Squee', 'Aratt', 'Skritt', 'Morskittar', 'Kritislik', 'Nurglitch', 'Gnawtail', 'Vrrak', 'Lucifer', 'Mick', 'Jake', 'Jeremy', 'Vrask', 'Snow', 'Verminking', 'Tate', 'Murkk', 'Obsicife', 'Milo'];
 
 const manualUpgradeOptions = [
   {
@@ -42,14 +43,16 @@ const autoUpgradeOptions = [
 const currentHelpers = [
   {
     name: 'Lurk',
-    top: 50,
+    top: 20,
     left: 50,
     rotation: 0
   }
 ]
 
+drawHelpers();
+
 // SECTION Event Listeners
-const moonElem = document.getElementById("moon");
+const moonElem = document.getElementById("moon-cont");
 moonElem.addEventListener("click", addManualWarpstone);
 
 const pickaxeElem = document.getElementById("btn-pickaxe");
@@ -92,6 +95,9 @@ function buyItem(type, category) {
     spentWarpstone += selectedItem.price;
     selectedItem.qty++;
     increasePrice(selectedItem);
+    if (type == 'ratstronaut') {
+      generateHelper();
+    }
   }
 
   calculateCurrentWarpstone(0);
@@ -148,9 +154,15 @@ function checkButtonState() {
     }
   })
 }
-// TODO generate helper ratstronauts
-function generateHelper() {
 
+function generateHelper() {
+  let nameRandNum = Math.floor(Math.random() * nameList.length)
+  let posLeftRand = Math.floor(Math.random() * 20 + 40)
+  let posTopRand = Math.floor(Math.random() * 80 + 1)
+  let posRotRand = Math.floor(Math.random() * 360)
+
+  currentHelpers.push({ name: nameList[nameRandNum], top: posTopRand, left: posLeftRand, rotation: posRotRand })
+  drawHelpers()
 }
 
 function drawWarpstone() {
@@ -206,9 +218,14 @@ function drawPrices() {
   })
 }
 
-// TODO draw helpers
 function drawHelpers() {
+  const moonContElem = document.getElementById('moon-cont');
 
+  moonContElem.innerHTML = `<img id="moon" src="imgs/morrslieb.png" alt="moon" class="img-fluid moon">`
+
+  currentHelpers.forEach((helper) => {
+    moonContElem.innerHTML += `<div class="helper" style="top:${helper.top}%; left: ${helper.left}%; rotate:${helper.rotation}deg;"><p>🐀</p><p>${helper.name}</p><div>`
+  })
 }
 
 function startClock() {
@@ -218,6 +235,8 @@ function startClock() {
   setInterval(addAutoWarpstone, 3000);
   clockStarted = true;
 }
+
+
 
 // function draw() {
 //   drawWarpstone();
