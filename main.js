@@ -3,6 +3,7 @@ let currentWarpstone = 0;
 let spentWarpstone = 0;
 let clockStarted = false;
 const nameList = ['Queek', 'Tretch', 'Ikit', 'Sleek', 'Sneek', 'Peanut', 'Sniktch', 'Thanquol', 'Skrolk', 'Ska', 'Squeak', 'Throt', 'Squee', 'Aratt', 'Skritt', 'Morskittar', 'Kritislik', 'Nurglitch', 'Gnawtail', 'Vrrak', 'Lucifer', 'Mick', 'Jake', 'Jeremy', 'Vrask', 'Snow', 'Verminking', 'Tate', 'Murkk', 'Obsicife', 'Milo'];
+let gameOver = false;
 
 const manualUpgradeOptions = [
   {
@@ -22,6 +23,12 @@ const manualUpgradeOptions = [
     price: 500,
     rate: 10,
     qty: 0
+  },
+  {
+    type: 'doomsphere',
+    price: 1000000,
+    rate: 0,
+    qty: 0
   }
 ]
 
@@ -29,13 +36,13 @@ const autoUpgradeOptions = [
   {
     type: 'ratstronaut',
     price: 1000,
-    rate: 13,
+    rate: 130,
     qty: 0
   },
   {
     type: 'colony',
     price: 50000,
-    rate: 130,
+    rate: 1313,
     qty: 0
   }
 ]
@@ -66,19 +73,26 @@ ratstronautElem.addEventListener("click", () => buyItem('ratstronaut', 'auto'));
 
 const colonyElem = document.getElementById("btn-colony");
 colonyElem.addEventListener("click", () => buyItem('colony', 'auto'));
+
+const doomsphereElem = document.getElementById("btn-doomsphere");
+doomsphereElem.addEventListener("click", () => buyItem('doomsphere', 'manual'));
 // !SECTION
 
 
 function addManualWarpstone() {
-  let incrAmt = calculateClickRate();
-  calculateCurrentWarpstone(incrAmt);
-  drawWarpstone();
+  if (!gameOver) {
+    let incrAmt = calculateClickRate();
+    calculateCurrentWarpstone(incrAmt);
+    drawWarpstone();
+  }
 }
 
 function addAutoWarpstone() {
-  let incrAmt = calculateAutoRate();
-  calculateCurrentWarpstone(incrAmt);
-  drawWarpstone();
+  if (!gameOver) {
+    let incrAmt = calculateAutoRate();
+    calculateCurrentWarpstone(incrAmt);
+    drawWarpstone();
+  }
 }
 
 function buyItem(type, category) {
@@ -97,6 +111,9 @@ function buyItem(type, category) {
     increasePrice(selectedItem);
     if (type == 'ratstronaut') {
       generateHelper();
+    }
+    if (type == 'doomsphere') {
+      activateDoomsphere();
     }
   }
 
@@ -127,8 +144,10 @@ function calculateAutoRate() {
 }
 
 function increasePrice(selectedItem) {
-  selectedItem.price += Math.round(selectedItem.price * 0.25);
-  drawPrices();
+  if (selectedItem.type != 'doomsphere') {
+    selectedItem.price += Math.round(selectedItem.price * 0.10);
+    drawPrices();
+  }
 }
 
 function checkButtonState() {
@@ -206,7 +225,7 @@ function drawPrices() {
   manualUpgradeOptions.forEach((upgrade) => {
     btnElem = document.getElementById(`btn-${upgrade.type}`)
 
-    if (btnElem != null) {
+    if (btnElem != null && upgrade.type != 'doomsphere') {
       btnElem.innerText = upgrade.price;
     }
   })
@@ -221,11 +240,13 @@ function drawPrices() {
 function drawHelpers() {
   const moonContElem = document.getElementById('moon-cont');
 
-  moonContElem.innerHTML = `<img id="moon" src="imgs/morrslieb.png" alt="moon" class="img-fluid moon">`
+  if (!gameOver) {
+    moonContElem.innerHTML = `<img id="moon" src="imgs/morrslieb.png" alt="moon" class="img-fluid moon">`
 
-  currentHelpers.forEach((helper) => {
-    moonContElem.innerHTML += `<div class="helper" style="top:${helper.top}%; left: ${helper.left}%; rotate:${helper.rotation}deg;"><p>🐀</p><p>${helper.name}</p><div>`
-  })
+    currentHelpers.forEach((helper) => {
+      moonContElem.innerHTML += `<div class="helper" style="top:${helper.top}%; left: ${helper.left}%; rotate:${helper.rotation}deg;"><p>🐀</p><p>${helper.name}</p><div>`
+    })
+  }
 }
 
 function startClock() {
@@ -236,7 +257,14 @@ function startClock() {
   clockStarted = true;
 }
 
-
+function activateDoomsphere() {
+  const moonContElem = document.getElementById('moon-cont');
+  const doomsphereBtn = document.getElementById('hide-me')
+  moonContElem.innerHTML = '<img src="imgs/morrslieb-destroyed.png" alt="moon-destroyed" class="img-fluid moon-destroyed">'
+  doomsphereBtn.classList.add('hide-me')
+  gameOver = true;
+  setTimeout(() => window.alert("You Win!"), 500)
+}
 
 // function draw() {
 //   drawWarpstone();
